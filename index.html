@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo Board</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .square {
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="board" id="bingoBoard"></div>
+    <button onclick="downloadScreenshot()">Download Screenshot</button>
+
+    <script>
+        const phrases = [
+            "He admitted", "His friends dropped him", "Supporting an abuser",
+            "You dont know him", "Comments towards Tommy and Technoblade relationship",
+            "Alice", "Misinformation", "I dont believe wilbur supporters",
+            "I'm believing a possible liar than an alleged abuser", "Guilty until proven inno"
+        ];
+
+        const board = document.getElementById("bingoBoard");
+
+        phrases.forEach(phrase => {
+            const square = document.createElement("div");
+            square.classList.add("square");
+            square.textContent = phrase;
+            square.onclick = () => square.style.backgroundColor = "teal";
+            board.appendChild(square);
+        });
+
+        function downloadScreenshot() {
+            const boardElement = document.getElementById("bingoBoard");
+            const width = boardElement.offsetWidth;
+            const height = boardElement.offsetHeight;
+
+            html2canvas(boardElement, {
+                width: width,
+                height: height,
+                scale: 2
+            }).then(canvas => {
+                const link = document.createElement("a");
+                link.download = "bingo_board.png";
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+    </script>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</body>
+
+</html>
