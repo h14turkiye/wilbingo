@@ -145,10 +145,12 @@
                 scale: 2
             }).then(canvas => {
                 canvas.toBlob(blob => {
-                    const clipboardData = new ClipboardEvent('').clipboardData || new DataTransfer();
-                    clipboardData.items.add(new File([blob], 'bingo_board.png', { type: 'image/png' }));
-                    navigator.clipboard.write(clipboardData);
-                    alert("Bingo board screenshot copied to clipboard!");
+                    const item = new ClipboardItem({ 'image/png': blob });
+                    navigator.clipboard.write([item]).then(() => {
+                        alert("Bingo board screenshot copied to clipboard!");
+                    }).catch(err => {
+                        console.error('Unable to copy to clipboard:', err);
+                    });
                 }, 'image/png');
             });
         }
