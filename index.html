@@ -133,14 +133,19 @@
         }
 
         function copyToClipboard() {
-            const boardContent = document.getElementById("bingoBoard").innerText;
-            const textarea = document.createElement("textarea");
-            textarea.value = boardContent;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand("copy");
-            document.body.removeChild(textarea);
-            alert("Bingo board content copied to clipboard!");
+            const boardElement = document.getElementById("bingoBoard");
+            html2canvas(boardElement, {
+                width: boardElement.offsetWidth,
+                height: boardElement.offsetHeight,
+                scale: 2
+            }).then(canvas => {
+                canvas.toBlob(blob => {
+                    const clipboardData = new ClipboardEvent('').clipboardData || new DataTransfer();
+                    clipboardData.items.add(new File([blob], 'bingo_board.png', { type: 'image/png' }));
+                    navigator.clipboard.write(clipboardData);
+                    alert("Bingo board screenshot copied to clipboard!");
+                }, 'image/png');
+            });
         }
     </script>
 
