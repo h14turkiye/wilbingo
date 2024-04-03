@@ -36,6 +36,27 @@
             font-size: 14px; /* Default font size */
         }
 
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            border: none;
+            background-color: teal;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #00796b; /* Darken teal color on hover */
+        }
+
         @media screen and (max-width: 480px) {
             .content {
                 font-size: 12px; /* Decrease font size for smaller screens */
@@ -47,7 +68,10 @@
 
 <body>
     <div class="board" id="bingoBoard"></div>
-    <button onclick="downloadScreenshot()">Download Screenshot</button>
+    <div class="button-container">
+        <button class="button" onclick="downloadScreenshot()">Download Screenshot</button>
+        <button class="button" onclick="copyToClipboard()">Copy to Clipboard</button>
+    </div>
 
     <script>
         function shuffleArray(array) {
@@ -106,6 +130,17 @@
                 link.href = canvas.toDataURL();
                 link.click();
             });
+        }
+
+        function copyToClipboard() {
+            const boardContent = document.getElementById("bingoBoard").innerText;
+            const textarea = document.createElement("textarea");
+            textarea.value = boardContent;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert("Bingo board content copied to clipboard!");
         }
     </script>
 
