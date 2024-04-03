@@ -72,7 +72,13 @@
     
             square.appendChild(content);
     
-            square.onclick = () => square.style.backgroundColor = "teal";
+            square.addEventListener('click', function() {
+                if (square.style.backgroundColor === 'teal') {
+                    square.style.backgroundColor = 'white';
+                } else {
+                    square.style.backgroundColor = 'teal';
+                }
+            });
             board.appendChild(square);
         });
 
