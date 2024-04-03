@@ -70,10 +70,14 @@
     <div class="board" id="bingoBoard"></div>
     <div class="button-container">
         <button class="button" onclick="downloadScreenshot()">Download Screenshot</button>
-        <button class="button" onclick="copyToClipboard()">Copy to Clipboard</button>
+        <button class="button" onclick="copyToClipboard()" id="copy">Copy to Clipboard</button>
     </div>
 
     <script>
+        if (navigator 
+          && navigator.clipboard 
+          && navigator.clipboard.writeText)
+            document.getElementById("copy").remove();
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
