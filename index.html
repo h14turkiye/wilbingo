@@ -13,11 +13,12 @@
         .board {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
+            gap: 7px;
             max-width: 600px;
             margin: 20px auto;
             background-color: gray; 
-            padding: 10px; 
+            padding: 7px;
+            border: 1px solid black;
         }
 
         .square {
@@ -60,6 +61,10 @@
         @media screen and (max-width: 480px) {
             .content {
                 font-size: 12px; /* Decrease font size for smaller screens */
+            }
+            .board {
+                gap: 4px;
+                padding: 4px;
             }
         }
     </style>
